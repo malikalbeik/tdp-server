@@ -3,6 +3,8 @@ from .models import Projects
 
 
 class ProjectsSerializer(serializers.ModelSerializer):
+    logo = serializers.CharField()
+    backgroundImage = serializers.CharField()
     class Meta:
         model = Projects
-        fields = ("title", "shortDescription", "description", "logo", "backgroundImage")
+        fields = '__all__' 
