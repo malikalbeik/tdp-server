@@ -9,3 +9,12 @@ class ListProjectsView(generics.ListAPIView):
     """
     queryset = Projects.objects.all()
     serializer_class = ProjectsSerializer
+
+class ListProjectDetailsView(generics.ListAPIView):
+    """
+    Provides the project details
+    """
+    serializer_class = ProjectsSerializer
+    def get_queryset(self):
+        projectTitle = self.kwargs['title']
+        return Projects.objects.filter(title=projectTitle)
