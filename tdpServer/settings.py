@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import uuid
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'ckeditor',
-    'project'
+    'project',
+    'blog'
 ]
 
 MIDDLEWARE = [
@@ -127,6 +129,14 @@ CORS_ORIGIN_WHITELIST = (
         'http://localhost:3000',
         )
 
+CKEDITOR_FILENAME_GENERATOR = 'get_image_path'
+
+
+def get_image_path(instance, filename):
+    """returns the path of the image"""
+    filename, file_extension = os.path.splitext(filename)
+    return os.path.join('static', 'projects', str(uuid.uuid4()) + file_extension)
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
@@ -134,6 +144,9 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, "static"),]
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+MEDIA_URL = '/media/'
+CKEDITOR_UPLOAD_PATH = "uploads/"
 STATICFILES_FINDERS = (
             'django.contrib.staticfiles.finders.FileSystemFinder',
             'django.contrib.staticfiles.finders.AppDirectoriesFinder',

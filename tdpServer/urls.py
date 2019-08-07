@@ -18,5 +18,7 @@ from django.urls import path, include, re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path('api/(?P<version>(v1|v2))/', include('project.urls'))
+    re_path('api/(?P<version>(v1|v2))/', include('project.urls')),
+    re_path('api/(?P<version>(v1|v2))/', include('blog.urls')),
+    re_path(r'^ckeditor/', include('ckeditor_uploader.urls'))
 ]
