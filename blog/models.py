@@ -1,7 +1,10 @@
 from django.db import models
 import os
 import uuid
+from project.models import Projects
 from ckeditor.fields import RichTextField
+from django_extensions.db.fields import AutoSlugField
+from unidecode import unidecode
 
 
 def get_image_path(instance, filename):
@@ -10,16 +13,21 @@ def get_image_path(instance, filename):
     return os.path.join('static', 'posts', str(uuid.uuid4()) + file_extension)
 
 
+def slugify(content):
+    content = unidecode(content)
+    content = content.replace('_', '-').lower()
+    return content.replace(" ", "-")
+
+    
 class Post(models.Model):
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique=True)
+    slug = AutoSlugField(populate_from='title', slugify_function=slugify)
     coverImage = models.ImageField(
         upload_to=get_image_path, blank=True, null=False)
+    project = models.ForeignKey(Projects, on_delete=models.CASCADE)
     summary = models.TextField(max_length=255, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
-
     content = RichTextField()
-
     is_published = models.BooleanField(default=False)
     date_published = models.DateTimeField(blank=True, null=True)
 
