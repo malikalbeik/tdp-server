@@ -22,3 +22,6 @@ urlpatterns = [
     re_path('api/(?P<version>(v1|v2))/', include('blog.urls')),
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls'))
 ]
+
+admin.site.site_header = 'TDP Backend'
+admin.site.site_title = 'TDP site Admin'

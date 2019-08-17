@@ -142,10 +142,11 @@ def get_image_path(instance, filename):
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, "static"),]
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
-MEDIA_URL = '/media/'
+#MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+#MEDIA_URL = '/media/'
 CKEDITOR_UPLOAD_PATH = "uploads/"
 STATICFILES_FINDERS = (
             'django.contrib.staticfiles.finders.FileSystemFinder',

@@ -1,10 +1,12 @@
 
 from django.urls import path
-from .views import PostViewSet, ListProjectPostsView
+from .views import PostViewSet, ListProjectPostsView, ListPostsByProjectView
 
 
 urlpatterns = [
     path('posts/', PostViewSet.as_view({'get': 'list'}), name="posts-all"),
+    path('posts/<slug:projectTitle>/',
+         ListProjectPostsView.as_view(), name="project-posts"),
     path('posts/<slug:postSlug>/',
-        ListProjectPostsView.as_view(), name="posts")
+         ListPostsByProjectView.as_view(), name="post")
 ]

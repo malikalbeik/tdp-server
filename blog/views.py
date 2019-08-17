@@ -10,7 +10,18 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+
 class ListProjectPostsView(generics.ListAPIView):
+    """
+    Provides the project details
+    """
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        projectTitle = self.kwargs['projectTitle']
+        return Post.objects.filter(project__title=projectTitle)
+
+class ListPostsByProjectView(generics.ListAPIView):
     """
     Provides the project details
     """

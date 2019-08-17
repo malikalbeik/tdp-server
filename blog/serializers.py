@@ -14,6 +14,7 @@ class ImageSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
     project = serializers.SerializerMethodField()
+    coverImage = serializers.CharField()
 
     class Meta:
         model = Post
