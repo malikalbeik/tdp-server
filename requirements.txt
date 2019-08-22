@@ -4,3 +4,4 @@ Pillow
 django-cors-headers
 django-extensions
 unidecode
+django-ckeditor
