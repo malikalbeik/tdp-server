@@ -1,32 +1,27 @@
-from rest_framework import generics
-from .models import Post, Image
+from django.shortcuts import get_object_or_404
+from rest_framework.response import Response
+from .models import Post
 from .serializers import PostSerializer
 from rest_framework import viewsets, permissions
 
-# Create your views here.
-
-
 class PostViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
-
-class ListProjectPostsView(generics.ListAPIView):
-    """
-    Provides the project details
-    """
-    serializer_class = PostSerializer
-
-    def get_queryset(self):
-        projectTitle = self.kwargs['projectTitle']
-        return Post.objects.filter(project__title=projectTitle)
-
-class ListPostsByProjectView(generics.ListAPIView):
-    """
-    Provides the project details
-    """
-    serializer_class = PostSerializer
+    def get_post(self, request, pk=None):
+        try:  # retrieve post by slug
+            return get_object_or_404(self.get_queryset().filter(slug=pk))
+        except:  # retrieve post by Projects title
+            return self.get_queryset().filter(project__title=pk)
 
     def get_queryset(self):
-        postSlug = self.kwargs['postSlug']
-        return Post.objects.filter(slug=postSlug)
+        if self.request.auth:
+            return Post.objects.all()
+        else:
+            return Post.visible.all()
+
+    def retrieve(self, request, pk=None):
+        post = self.get_post(request, pk)
+        serializer = self.get_serializer(post, many=True)
+        return Response(serializer.data)

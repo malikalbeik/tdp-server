@@ -1,20 +1,17 @@
-from rest_framework import generics
 from .models import Projects
 from .serializers import ProjectsSerializer
+from django.shortcuts import get_object_or_404
+from rest_framework.response import Response
+from rest_framework import viewsets, permissions
 
 
-class ListProjectsView(generics.ListAPIView):
-    """
-    Provides a get method handler.
-    """
+class ProjectViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     queryset = Projects.objects.all()
     serializer_class = ProjectsSerializer
 
-class ListProjectDetailsView(generics.ListAPIView):
-    """
-    Provides the project details
-    """
-    serializer_class = ProjectsSerializer
-    def get_queryset(self):
-        projectTitle = self.kwargs['title']
-        return Projects.objects.filter(title=projectTitle)
+    def retrieve(self, request, pk=None):
+        # retrieve post by title
+        project = get_object_or_404(self.get_queryset().filter(title=pk))
+        serializer = self.get_serializer(project)
+        return Response(serializer.data)

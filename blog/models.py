@@ -7,6 +7,10 @@ from django_extensions.db.fields import AutoSlugField
 from unidecode import unidecode
 
 
+class PostManager(models.Manager):
+    def get_queryset(self):
+        return super(PostManager, self).get_queryset().filter(is_published=True)
+
 def get_image_path(instance, filename):
     """returns the path of the image"""
     filename, file_extension = os.path.splitext(filename)
@@ -30,6 +34,9 @@ class Post(models.Model):
     content = RichTextField()
     is_published = models.BooleanField(default=False)
     date_published = models.DateTimeField(blank=True, null=True)
+
+    objects = models.Manager()
+    visible = PostManager()
 
     def __str__(self):
         return self.title if self.is_published else "[DRAFT] " + self.title
