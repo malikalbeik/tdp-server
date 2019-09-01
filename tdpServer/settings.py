@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'django_filters',
+#    'django_filters',
     'corsheaders',
     'ckeditor',
     'project',
@@ -126,10 +126,10 @@ REST_FRAMEWORK = {
     # 'DEFAULT_RENDERER_CLASSES': (
     #     'rest_framework.renderers.JSONRenderer',
     # ),
-    'DEFAULT_THROTTLE_RATES': {
-        'anon': '500/day',
-        'user': '1000/hour',
-    }
+#    'DEFAULT_THROTTLE_RATES': {
+#        'anon': '500/day',
+#        'user': '1000/hour',
+#    }
 }
 
 # Internationalization

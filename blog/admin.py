@@ -12,7 +12,7 @@ class ImagesInLine(admin.TabularInline):
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
  
-    list_display = ("title", "summary")
+    list_display = ("title", "summary", "date_created", "is_published")
  
     inlines = [
         ImagesInLine
