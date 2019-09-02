@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'project',
     'blog',
-    'contents'
+    'contents',
+    'field_permissions',
 ]
 
 MIDDLEWARE = [
@@ -107,6 +108,12 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # keep this bad boy
+    'field_permissions.backends.InstancePermissionBackend',
 ]
 
 # Django REST Framework

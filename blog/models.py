@@ -5,6 +5,7 @@ from project.models import Projects
 from ckeditor.fields import RichTextField
 from django_extensions.db.fields import AutoSlugField
 from unidecode import unidecode
+from field_permissions.models import FieldPermissionModelMixin
 
 
 class PostManager(models.Manager):
@@ -23,7 +24,7 @@ def slugify(content):
     return content.replace(" ", "-")
 
     
-class Post(models.Model):
+class Post(FieldPermissionModelMixin, models.Model):
     title = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='title', slugify_function=slugify)
     coverImage = models.ImageField(
@@ -43,6 +44,7 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-is_published', '-date_published', '-date_created', ]
+        permissions = [("can_change_post_is_published", "Can publish post"),]
 
 
 class Image(models.Model):
