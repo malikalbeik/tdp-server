@@ -15,7 +15,7 @@ class PostManager(models.Manager):
 def get_image_path(instance, filename):
     """returns the path of the image"""
     filename, file_extension = os.path.splitext(filename)
-    return os.path.join('static', 'posts', str(uuid.uuid4()) + file_extension)
+    return os.path.join('tdpServer', 'static', 'posts', str(uuid.uuid4()) + file_extension)
 
 
 def slugify(content):
@@ -24,7 +24,7 @@ def slugify(content):
     return content.replace(" ", "-")
 
     
-class Post(FieldPermissionModelMixin, models.Model):
+class Post(models.Model):
     title = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='title', slugify_function=slugify)
     coverImage = models.ImageField(

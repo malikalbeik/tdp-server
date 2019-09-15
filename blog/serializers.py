@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Post, Image
 from project.serializers import ProjectsSerializer
 from project.models import Projects
+import os
 
 class ImageSerializer(serializers.ModelSerializer):
     image = serializers.CharField(read_only=True)
@@ -14,7 +15,7 @@ class ImageSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
     project = serializers.SerializerMethodField()
-    coverImage = serializers.CharField()
+    coverImage = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
@@ -30,3 +31,13 @@ class PostSerializer(serializers.ModelSerializer):
         project = post.project
         serializer = ProjectsSerializer(project, many=False)
         return serializer.data
+   
+    def get_coverImage(self, obj):
+        imagePath = str(obj.coverImage)
+        print('here it is')
+        print(obj.coverImage)
+        imagePath = imagePath.split('/')
+        if (imagePath[0] == "tdpServer"):
+            del imagePath[0]
+        imagePath = str(os.path.join(*imagePath))
+        return imagePath

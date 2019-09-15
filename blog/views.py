@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework.response import Response
 from .models import Post
 from .serializers import PostSerializer
@@ -11,7 +11,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def get_post(self, request, pk=None):
         try:  # retrieve post by slug
-            return get_object_or_404(self.get_queryset().filter(slug=pk))
+            return get_list_or_404(self.get_queryset().filter(slug=pk))
         except:  # retrieve post by Projects title
             return self.get_queryset().filter(project__title=pk)
 

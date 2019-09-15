@@ -26,7 +26,7 @@ SECRET_KEY = 'secretkey'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get('DEBUG', default=1))
 
-ALLOWED_HOSTS = ['backend.malikalbeik.com', 'localhost']
+ALLOWED_HOSTS = ['malikalbeik.com', 'localhost']
 
 
 # Application definition
@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-#    'django_filters',
     'corsheaders',
     'ckeditor',
     'project',
@@ -173,11 +172,8 @@ def get_image_path(instance, filename):
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
-#STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, "static"),]
-#MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
-#MEDIA_URL = '/media/'
 CKEDITOR_UPLOAD_PATH = "uploads/"
 STATICFILES_FINDERS = (
             'django.contrib.staticfiles.finders.FileSystemFinder',
