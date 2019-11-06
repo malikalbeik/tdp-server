@@ -6,7 +6,7 @@ import uuid
 def get_image_path(instance, filename):
     """returns the path of the image"""
     filename, file_extension = os.path.splitext(filename)
-    return os.path.join('static', 'projects', str(uuid.uuid4()) + file_extension)
+    return os.path.join('tdpServer', 'static', 'projects', str(uuid.uuid4()) + file_extension)
 
 # Create your models here.
 class Projects(models.Model):

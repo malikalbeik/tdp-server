@@ -10,7 +10,8 @@ class ImagesInLine(admin.TabularInline):
 
 
 def has_approval_permission(request):
-    if request.user.has_perm('can_change_post_is_published'):
+    print("the user has the right: {}".format(request.user.has_perm('blog.can_publish')))
+    if request.user.has_perm('blog.can_publish'):
         return True
     return False
 

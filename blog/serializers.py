@@ -5,11 +5,19 @@ from project.models import Projects
 import os
 
 class ImageSerializer(serializers.ModelSerializer):
-    image = serializers.CharField(read_only=True)
+    image = serializers.SerializerMethodField()
 
     class Meta:
         model = Image
         fields = ('image',)
+
+    def get_image(self, obj):
+        imagePath = str(obj.image)
+        imagePath = imagePath.split('/')
+        if (imagePath[0] == "tdpServer"):
+            del imagePath[0]
+        imagePath = str(os.path.join(*imagePath))
+        return imagePath
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -34,8 +42,6 @@ class PostSerializer(serializers.ModelSerializer):
    
     def get_coverImage(self, obj):
         imagePath = str(obj.coverImage)
-        print('here it is')
-        print(obj.coverImage)
         imagePath = imagePath.split('/')
         if (imagePath[0] == "tdpServer"):
             del imagePath[0]

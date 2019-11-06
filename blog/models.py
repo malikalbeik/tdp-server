@@ -5,7 +5,7 @@ from project.models import Projects
 from ckeditor.fields import RichTextField
 from django_extensions.db.fields import AutoSlugField
 from unidecode import unidecode
-from field_permissions.models import FieldPermissionModelMixin
+#from field_permissions.models import FieldPermissionModelMixin
 
 
 class PostManager(models.Manager):
@@ -44,7 +44,7 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-is_published', '-date_published', '-date_created', ]
-        permissions = [("can_change_post_is_published", "Can publish post"),]
+        permissions = [("can_publish", "Can publish post"),]
 
 
 class Image(models.Model):
