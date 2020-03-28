@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'project',
     'blog',
     'contents',
-    'field_permissions',
 ]
 
 MIDDLEWARE = [
@@ -112,7 +111,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # keep this bad boy
-    'field_permissions.backends.InstancePermissionBackend',
 ]
 
 # Django REST Framework
