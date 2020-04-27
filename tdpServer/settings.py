@@ -26,7 +26,14 @@ SECRET_KEY = "secretkey"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=1))
 
-ALLOWED_HOSTS = ["malikalbeik.com", "admin.localhost", "api.localhost", "localhost"]
+ALLOWED_HOSTS = [
+    "tdpbilkent.com",
+    "admin.tdpbilkent.com",
+    "api.tdpbilkent.com",
+    "www.tdpbilkent.com",
+    "www.admin.tdpbilkent.com",
+    "www.api.tdpbilkent.com",
+]
 
 
 # Application definition
